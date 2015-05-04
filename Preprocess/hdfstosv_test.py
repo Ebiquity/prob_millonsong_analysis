@@ -18,7 +18,7 @@ def test_correctly_extract_song_info():
     assert len(song_data_rows[0]) == 20
 
 
-def test_correctly_extract_song_info():
+def test_correctly_extract_song_metadata():
     tol = 0.01
 
     filename = "../data/subset/cvt_extraction/TRADTAV128F14B0F47.h5"
@@ -36,7 +36,7 @@ def test_correctly_extract_song_info():
 
 def test_write_artist_table_single_row():
     m = mock_open()
-    data = [('1', '2', '3', '4')]
+    data = [('1', 2, '3', '4')]
 
     expected_calls = [call('artist_data.tsv', 'a'),
                       call().__enter__(),
@@ -49,4 +49,12 @@ def test_write_artist_table_single_row():
 
     assert expected_calls == m.mock_calls
 
-def test_enumerate_input_files()
+
+def test_enumerate_input_files():
+    files = discover_files("../data/subset/cvt_large_test/")
+    assert len(files) == 553
+    assert files[0] == "data/A/D/A/TRADABC128F4274FCC.h5"
+    assert files[19] == "data/A/D/B/TRADBSW128F933A7A8.h5"
+    assert files[290] == "data/A/D/Y/TRADYZC12903CCC8FA.h5"
+    assert files[545] == "data/B/E/Z/TRBEZFS128F92E40DD.h5"
+
